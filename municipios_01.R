@@ -16,41 +16,42 @@ library(NbClust)
 
 da00 <- read_excel("IRS_entidades_mpios_2020.xlsx",
                    skip = 5, 
-                   sheet = "Estados",
+                   sheet = "Municipios",
                    col_names = TRUE)
 
 glimpse(da00)
 
 da00 %<>% rename("Clave" = ...1,
                  "Entidad" = ...2,
-                 "Pob_total" = ...3)
-  
-da01 <- da00%>% 
-  filter(Entidad != "Nacional") %>% 
+                 "cla_munic" = ...3,
+                 "Municipio" = ...4,
+                 "pob_total" = ...5)
+
+da01 <- da00 %>% 
+  filter(Entidad == "Guanajuato") %>% 
   select(
-  Clave,
-  Entidad,
-  Pob_total,
-  "Analfab" = `Población de 15 años o más analfabeta`,
-  "No_escuela" = `Población de 6 a 14 años que no asiste a la escuela`,
-  "Educ_bas_incomp" = `Población de 15 años y más con educación básica incompleta`,
-  "Sin_salud" = `Población sin derechohabiencia a servicios de salud`,
-  "Piso_tierra" = `Viviendas con piso de tierra`,
-  "Sin_sanitario" = `Viviendas que no disponen de excusado o sanitario`,
-  "Sin_agua" = `Viviendas que no disponen de agua entubada de la red pública`,
-  "Sin_drenaje" = `Viviendas que no disponen de drenaje`,
-  "Sin_luz" = `Viviendas que no disponen de energía eléctrica`,
-  "Sin_lavadora" = `Viviendas que no disponen de lavadora`,
-  "Sin_refri" = `Viviendas que no disponen de refrigerador`,
-  "irs" = ...15,
-  "nivel" = ...16) %>% 
-  filter(Clave <= 32)
+    cla_munic,
+    Municipio,
+    pob_total,
+    "Analfab" = `Población de 15 años o más analfabeta`,
+    "No_escuela" = `Población de 6 a 14 años que no asiste a la escuela`,
+    "Educ_bas_incomp" = `Población de 15 años y más con educación básica incompleta`,
+    "Sin_salud" = `Población sin derechohabiencia a servicios de salud`,
+    "Piso_tierra" = `Viviendas con piso de tierra`,
+    "Sin_sanitario" = `Viviendas que no disponen de excusado o sanitario`,
+    "Sin_agua" = `Viviendas que no disponen de agua entubada de la red pública`,
+    "Sin_drenaje" = `Viviendas que no disponen de drenaje`,
+    "Sin_luz" = `Viviendas que no disponen de energía eléctrica`,
+    "Sin_lavadora" = `Viviendas que no disponen de lavadora`,
+    "Sin_refri" = `Viviendas que no disponen de refrigerador`,
+    "irs" = ...17,
+    "nivel" = ...18) 
 
 feat <- da01 %>% 
   select(4:14) %>% 
   scale()
 
-rownames(feat) <- da01$Entidad
+rownames(feat) <- da01$Municipio
 
 
 # Cluster jerárquico
@@ -79,12 +80,12 @@ pheatmap::pheatmap(mat = feat,
                    cluster_cols = FALSE,
                    cutree_rows = 5,
                    fontsize = 6,
-                   main = "Agrupación de Entidades por IRS")
+                   main = "Agrupación de Municipios por IRS")
 
 
 fviz_cluster(object = list(data = feat,
                            cluster = hie_clusters),
-             ellipse.type = "norm",
+             ellipse.type = "t",
              repel = TRUE,
              show.clust.cent = FALSE)
 
@@ -112,24 +113,5 @@ fviz_cluster(object = klusters,
              repel = TRUE,
              show.clust.cent = FALSE,
              ellipse.type = "t")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
