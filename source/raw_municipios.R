@@ -29,7 +29,9 @@ da_mun_00 %<>% rename("Clave" = ...1,
 # Cambio de nombre de variables
 da_mun_01 <- da_mun_00 %>% 
   filter(Entidad == "Guanajuato") %>% 
+  #filter(row_number() != 1) %>% 
   select(
+    Entidad,
     cla_munic,
     Municipio,
     pob_total,

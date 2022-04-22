@@ -12,18 +12,20 @@ library(ggtext)
 
 
 ## Source
-suppressMessages(source("source/raw_estados.R"))
+suppressMessages(source("source/raw_municipios.R"))
 
 
 ## Mapa
-# población analfabete
-map_analfabeta <- da_est_01 %>% 
-  select(region = Clave,
-         value = pob_analfabeta)
+# población analfabeta
+map_gto_analfabeta <- da_mun_01 %>% 
+  select(region = cla_munic,
+         value = analfabeta,
+         Entidad)
 
 
-mxstate_choropleth(map_analfabeta,
-                   legend = "% Población") +
+# Mapa
+mxmunicipio_choropleth(map_gto_analfabeta,
+                       legend = "% Población") +
   theme(text = element_text(family = "Optima"),
         plot.title = element_text(size = 18),
         plot.title.position = "plot",
@@ -35,6 +37,11 @@ mxstate_choropleth(map_analfabeta,
        subtitle = "Los números y el gradiente de color indican el porcentaje\nde personas mayores de 15 años que no saben leer.",
        caption = "Fuente: Datos del CONEVAL (2020) <br>
        Visualización: Juan L. Bretón, PMP | @BretonPmp")
+
+
+
+
+
 
 
 
