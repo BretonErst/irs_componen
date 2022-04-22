@@ -73,7 +73,9 @@ pheatmap::pheatmap(mat = mun_features,
                    fontsize_col = 6,
                    fontsize_row = 6,
                    main = "Agrupación de Municipios de Guanajuato por\nComponentes del IRS",
-                   legend = FALSE)
+                   legend = FALSE) #-> mi_03
+
+ggsave(filename = "mi_03", plot = mi_03, device = "tiff", path = "figures/")
 
 
 # Visualización espacial de los municipios de GUANAJUATO
