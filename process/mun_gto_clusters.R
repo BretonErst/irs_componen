@@ -20,7 +20,7 @@ source("source/raw_municipios.R")
 ## Preparación de variables
 # Escalado de variables
 mun_features <- da_mun_01 %>% 
-  select(4:14) %>% 
+  select(5:15) %>% 
   scale()
 
 # Asignación de nombres de fila
@@ -47,7 +47,7 @@ fviz_dend(x = hier_mun_clust,
        y = NULL,
        x = NULL,
        caption = "Fuente: CONEVAL (2020), <br>
-       Visualización: @BretonPmp") -> mi_01
+       Visualización: @BretonPmp") #-> mi_01
 
 
 ggsave(filename = "mi_01", plot = mi_01, path = "figures", device = "tiff")
@@ -69,8 +69,12 @@ pheatmap::pheatmap(mat = mun_features,
                    clustering_method = "ward.D2",
                    cluster_cols = FALSE,
                    cutree_rows = 5,
-                   fontsize = 6,
-                   main = "Agrupación de Municipios de Guanajuato por IRS")
+                   fontsize = 10,
+                   fontsize_col = 6,
+                   fontsize_row = 6,
+                   main = "Agrupación de Municipios de Guanajuato por\nComponentes del IRS",
+                   legend = FALSE)
+
 
 # Visualización espacial de los municipios de GUANAJUATO
 fviz_cluster(object = list(data = mun_features,
