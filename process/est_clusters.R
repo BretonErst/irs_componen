@@ -38,8 +38,19 @@ fviz_dend(x = est_hier_clust,
           repel = TRUE) +
   geom_hline(yintercept = 5, 
              linetype = 2) +
-  theme(text = element_text(family = "Optima")) +
-  labs(title = "Agrupación de Estados por Componentes del IRS")
+  theme(text = element_text(family = "Optima"),
+        plot.title = element_text(size = 18),
+        plot.title.position = "plot",
+        plot.caption.position = "plot",
+        plot.caption = element_markdown(color = "darkgrey",
+                                        hjust = 0)) +
+  labs(title = "Agrupación de Estados por Componentes del IRS",
+       y = NULL,
+       x = NULL,
+       caption = "Fuente: CONEVAL (2020), <br>
+       Visualización: @BretonPmp") #-> fi_01
+
+ggsave(filename = "fi_01", plot = fi_01, path = "figures", device = "tiff")
 
 # Podado del árbol 5 clusters
 est_hier_clusters <- cutree(tree = est_hier_clust, 

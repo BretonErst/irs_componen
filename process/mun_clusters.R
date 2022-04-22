@@ -37,8 +37,21 @@ fviz_dend(x = hier_mun_clust,
           repel = TRUE) +
   geom_hline(yintercept = 5, 
              linetype = 2) +
-  theme(text = element_text(family = "Optima")) +
-  labs(title = "Agrupación de Municipios de Guanajuato por Componentes del IRS")
+  theme(text = element_text(family = "Optima"),
+        plot.title = element_text(size = 18),
+        plot.title.position = "plot",
+        plot.caption.position = "plot",
+        plot.caption = element_markdown(color = "darkgrey",
+                                        hjust = 0)) +
+  labs(title = "Agrupación de Municipios de Guanajuato por Componentes del IRS",
+       y = NULL,
+       x = NULL,
+       caption = "Fuente: CONEVAL (2020), <br>
+       Visualización: @BretonPmp") -> mi_01
+
+
+ggsave(filename = "mi_01", plot = mi_01, path = "figures", device = "tiff")
+
 
 
 # Asignación de clusters
