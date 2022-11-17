@@ -37,12 +37,13 @@ fviz_dend(x = hier_mun_clust,
           repel = TRUE) +
   geom_hline(yintercept = 5, 
              linetype = 2) +
-  theme(text = element_text(family = "Optima"),
+  theme(text = element_text(family = "Encode Sans Condensed"),
         plot.title = element_text(size = 18),
         plot.title.position = "plot",
         plot.caption.position = "plot",
         plot.caption = element_markdown(color = "darkgrey",
                                         hjust = 0)) +
+  ylim(-30, 20) +
   labs(title = "Agrupación de Municipios de Guanajuato por Componentes del IRS",
        y = NULL,
        x = NULL,
