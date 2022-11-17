@@ -44,6 +44,7 @@ fviz_dend(x = est_hier_clust,
         plot.caption.position = "plot",
         plot.caption = element_markdown(color = "darkgrey",
                                         hjust = 0)) +
+  ylim(-7, NA) +
   labs(title = "Agrupación de Estados por Componentes del IRS",
        y = NULL,
        x = NULL,
@@ -111,7 +112,7 @@ fviz_cluster(object = klusters,
              data = est_features,
              repel = TRUE,
              show.clust.cent = FALSE,
-             ellipse.type = "t")
+             ellipse.type = "euclid")
 
 
 
