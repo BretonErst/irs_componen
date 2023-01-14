@@ -116,7 +116,12 @@ fviz_cluster(object = klusters,
              data = mun_features,
              repel = TRUE,
              show.clust.cent = FALSE,
-             ellipse.type = "t")
+             ellipse.type = "t") +
+  theme(text = element_text(family = "Encode Sans Condensed"),
+        plot.title = element_text(face = "bold", size = 16),
+        panel.background = element_rect(fill = "#FFFFFF"),
+        axis.title = element_blank(),
+        legend.position = "top")
 
 
 
