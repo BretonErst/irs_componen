@@ -33,6 +33,10 @@ base_mapa_nacional <- nal_map %>%
 
 ## Mapa
 # educación básica incompleta
+limit <- round(c(min(base_mapa_nacional$educa_basica_incomp),
+                 max(base_mapa_nacional$educa_basica_incomp)),
+               digits = 1)
+
 base_mapa_nacional %>% 
   ggplot(aes(fill = educa_basica_incomp)) +
     geom_sf(color = "grey60",
@@ -50,12 +54,14 @@ base_mapa_nacional %>%
           plot.title.position = "plot",
           plot.caption.position = "plot") +
     labs(title = "Población con educación básica incompleta",
-         subtitle = "Por entidad",
-         caption = "Fuente: CONEVAL 2020<br>
+         subtitle = "Por entidad federativa",
+         caption = "Fuente: CONEVAL Índice de Rezago Social 2020<br>
                Visualización: Juan L. Bretón, PMP | @BretonPmp") +
     scale_fill_gradient(name = "Porcentaje de\npersonas", 
                         low = "#FFFFFF",
-                        high = "#7B0303")
+                        high = "#D67620",
+                        limits = limit,
+                        breaks = seq(limit[1], limit[2], length.out = 4))
 
 
 
