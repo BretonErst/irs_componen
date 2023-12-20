@@ -17,25 +17,29 @@ suppressMessages(source("source/raw_estados.R"))
 
 ## Preparación del Mapa
 # población educación básica incompleta
-mapa_todas <- da_est_01 %>% 
+mapa_todas <- 
+  da_est_01 %>% 
   janitor::clean_names() 
   
 
 # carga del archivo shape
-nal_map <- st_read("source/conjunto_de_datos/nal/00ent.shp")
+nal_map <- 
+  st_read("source/conjunto_de_datos/nal/00ent.shp")
 
 
 # integración con el archivo de datos
-base_mapa_nacional <- nal_map %>% 
+base_mapa_nacional <- 
+  nal_map %>% 
   left_join(mapa_todas, 
             by = c("CVEGEO" = "clave"))
 
 
 ## Mapa
 # educación básica incompleta
-limit <- round(c(min(base_mapa_nacional$educa_basica_incomp),
-                 max(base_mapa_nacional$educa_basica_incomp)),
-               digits = 1)
+limit <- 
+  round(c(min(base_mapa_nacional$educa_basica_incomp),
+          max(base_mapa_nacional$educa_basica_incomp)),
+        digits = 1)
 
 base_mapa_nacional %>% 
   ggplot(aes(fill = educa_basica_incomp)) +

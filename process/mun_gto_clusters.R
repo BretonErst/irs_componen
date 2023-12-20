@@ -19,17 +19,20 @@ source("source/raw_municipios.R")
 
 ## Preparación de variables
 # Escalado de variables
-mun_features <- da_mun_01 %>% 
+mun_features <-
+  da_mun_01 %>% 
   select(5:15) %>% 
   scale()
 
 # Asignación de nombres de fila
-rownames(mun_features) <- da_mun_01$Municipio
+rownames(mun_features) <- 
+  da_mun_01$Municipio
 
 
 ## Clustering jerárquico
-hier_mun_clust <- hclust(dist(mun_features), 
-                         method = "ward.D2")
+hier_mun_clust <- 
+  hclust(dist(mun_features), 
+         method = "ward.D2")
 
 # Dendograma
 fviz_dend(x = hier_mun_clust,
@@ -56,10 +59,12 @@ ggsave(filename = "mi_01", plot = mi_01, path = "figures", device = "tiff")
 
 
 # Asignación de clusters
-hier_mun_clusters <- cutree(tree = hier_mun_clust, 
-                       k = 5)
+hier_mun_clusters <- 
+  cutree(tree = hier_mun_clust, 
+         k = 5)
 
-municipios_gto_clusters <- cbind(da_mun_01, hier_mun_clusters) 
+municipios_gto_clusters <- 
+  cbind(da_mun_01, hier_mun_clusters) 
 rownames(municipios_gto_clusters) <- NULL
 
 
@@ -98,7 +103,8 @@ fviz_nbclust(matrix(mun_features),
              method = "silhouette")
 
 # Ensamble para el calculo de número de clusters
-num_k <- NbClust(data = mun_features,
+num_k <- 
+  NbClust(data = mun_features,
                  distance = "euclidean",
                  min.nc = 2,
                  max.nc = 10,
@@ -107,9 +113,10 @@ num_k <- NbClust(data = mun_features,
 
 
 # Clustering por KMeans
-klusters <- kmeans(x = mun_features, 
-                   centers = 5, 
-                   nstart = 20)
+klusters <- 
+  kmeans(x = mun_features, 
+         centers = 5, 
+         nstart = 20)
 
 # Visualización
 fviz_cluster(object = klusters,

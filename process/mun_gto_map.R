@@ -17,21 +17,24 @@ suppressMessages(source("source/raw_municipios.R"))
 
 
 ## Carga del archivo shape
-gto_map <- st_read("source/conjunto_de_datos/gto/11mun.shp")
+gto_map <- 
+  st_read("source/conjunto_de_datos/gto/11mun.shp")
 
 
 # integración con base de datos
-base_gto_mapa <- gto_map %>% 
+base_gto_mapa <- 
+  gto_map %>% 
   left_join(da_mun_01, by = c("CVEGEO" = "cla_munic"))
 
 
 
 ## Visualización de mapa
 # con piso de tierra
+limite <- 
+  round(c(min(base_gto_mapa$piso_tierra),
+          max(base_gto_mapa$piso_tierra)),
+        digits = 1)
 
-limite <- round(c(min(base_gto_mapa$piso_tierra),
-                  max(base_gto_mapa$piso_tierra)),
-                digits = 1)
 
 base_gto_mapa %>% 
   ggplot(aes(fill = piso_tierra)) +
