@@ -19,18 +19,22 @@ source("source/raw_estados.R")
 
 ## Preparación de variables
 # Escalado
-est_features <- da_est_01 %>% 
+est_features <- 
+  da_est_01 %>% 
   select(4:14) %>% 
   scale()
 
 # Asignacion de nombres a dataframe 
-rownames(est_features) <- da_est_01$Entidad
+rownames(est_features) <- 
+  da_est_01$Entidad
 
 
 ## Clusterización Jerárquica en 5 clusters
 # Algoritmo método ward.D2
-est_hier_clust <- hclust(dist(est_features), 
-                         method = "ward.D2")
+est_hier_clust <- 
+  hclust(dist(est_features), 
+         method = "ward.D2")
+
 
 # Visualización de dendograma
 fviz_dend(x = est_hier_clust,
@@ -44,7 +48,7 @@ fviz_dend(x = est_hier_clust,
         plot.caption.position = "plot",
         plot.caption = element_markdown(color = "darkgrey",
                                         hjust = 0)) +
-  ylim(-7, NA) +
+  ylim(-18, NA) +
   labs(title = "Agrupación de Estados por Componentes del IRS",
        y = NULL,
        x = NULL,
@@ -53,12 +57,15 @@ fviz_dend(x = est_hier_clust,
 
 ggsave(filename = "fi_01", plot = fi_01, path = "figures", device = "tiff")
 
+
 # Podado del árbol 5 clusters
-est_hier_clusters <- cutree(tree = est_hier_clust, 
-                            k = 5)
+est_hier_clusters <- 
+  cutree(tree = est_hier_clust, 
+         k = 5)
 
 # Integración de clustes a la base de datos original
-est_clusters <- cbind(da_est_01, est_hier_clusters) 
+est_clusters <- 
+  cbind(da_est_01, est_hier_clusters) 
 rownames(est_clusters) <- NULL
 
 
@@ -94,7 +101,8 @@ fviz_nbclust(matrix(est_features),
 
 
 # Ensamble del cálculo del número óptimo de clusters
-num_k <- NbClust(data = est_features,
+num_k <- 
+  NbClust(data = est_features,
                  distance = "euclidean",
                  min.nc = 2,
                  max.nc = 10,
@@ -103,9 +111,11 @@ num_k <- NbClust(data = est_features,
 
 
 ## Clusterización por K means
-klusters <- kmeans(x = est_features, 
-                   centers = 5, 
-                   nstart = 20)
+klusters <- 
+  kmeans(x = est_features, 
+         centers = 5, 
+         nstart = 20)
+
 
 # Visualización de clusters
 fviz_cluster(object = klusters,
